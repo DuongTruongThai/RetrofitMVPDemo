@@ -9,32 +9,34 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CountryRepos:CountryInterface.CountryModel {
+class CountryRepos : CountryInterface.CountryModel {
 
-    private lateinit var country:Country
-    private var apiClient: JobServices?=null
+    private lateinit var country: Country
+    private var apiClient: JobServices? = null
 
     init {
         apiClient = JobAPI.client.create(JobServices::class.java)
     }
 
-    override fun getCountryInfoByName(
+    override fun getCountryByNameFromAPI(
         countryName: String,
         presenter: CountryInterface.CountryPresenter
     ) {
         val call = apiClient?.getCountryByName(countryName)
-        call?.enqueue(object : Callback<List<Country>>{
+        call?.enqueue(object : Callback<List<Country>> {
             override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
-                if (response.isSuccessful){
-                    country = response.body()?.get(0)!!
+                if (response.isSuccessful) {
+                    response.body()?.get(0)?.let {
+                        country = it
+                    }
                     presenter.UIAutoUpdate()
                 }
             }
 
             override fun onFailure(call: Call<List<Country>>, t: Throwable) {
-                Log.d("error",t.toString())
+                Log.d("error", t.toString())
+                presenter.failToExecute(t.toString())
             }
-
         })
     }
 

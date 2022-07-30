@@ -9,10 +9,9 @@
 
     <TextView
         android:id="@+id/tvRegion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
+        android:layout_width="@dimen/layoutWidth"
+        android:layout_height="@dimen/layoutHeight"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,10 +22,9 @@
 
     <TextView
         android:id="@+id/tvPopulation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
+        android:layout_width="@dimen/layoutWidth"
+        android:layout_height="@dimen/layoutHeight"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,10 +91,9 @@
 
     <TextView
         android:id="@+id/tvArea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
+        android:layout_width="@dimen/layoutWidth"
+        android:layout_height="@dimen/layoutHeight"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,10 +141,9 @@
 
     <TextView
         android:id="@+id/tvCapital"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
+        android:layout_width="@dimen/layoutWidth"
+        android:layout_height="@dimen/layoutHeight"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

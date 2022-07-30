@@ -3,29 +3,34 @@ package com.example.retrofitmvp
 import Country
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.retrofitmvp.databinding.ActivityMainBinding
 import com.example.retrofitmvp.interfaces.CountryInterface
 import com.example.retrofitmvp.presenter.CountryPresenter
+import java.time.Duration
 
 class MainActivity : AppCompatActivity(), CountryInterface.CountryView {
 
-    private lateinit var binding: ActivityMainBinding
-    private var countryName: String ?= null
-    private var presenter: CountryPresenter ?= null
-    private var contryInfo: Country ?= null
+    private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private var countryName: String? = null
+    private var presenter: CountryPresenter? = null
+    private var countryInfo: Country? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         presenter = CountryPresenter(this)
 
-        binding.tvTitle1.setVisibility(View.INVISIBLE)
-        binding.tvTitle2.setVisibility(View.INVISIBLE)
-        binding.tvTitle3.setVisibility(View.INVISIBLE)
-        binding.tvTitle4.setVisibility(View.INVISIBLE)
+        binding.apply {
+            tvTitle1.isVisible = false
+            tvTitle2.isVisible = false
+            tvTitle3.isVisible = false
+            tvTitle4.isVisible = false
+        }
 
         binding.btnFindCountry.setOnClickListener {
             countryName = binding.edtCapital.text!!.toString()
@@ -33,18 +38,24 @@ class MainActivity : AppCompatActivity(), CountryInterface.CountryView {
         }
     }
 
-    override fun updateViewData() {
-        contryInfo = presenter?.showCountryInfo()
-        if (contryInfo != null) {
-            binding.tvTitle1.setVisibility(View.VISIBLE)
-            binding.tvTitle2.setVisibility(View.VISIBLE)
-            binding.tvTitle3.setVisibility(View.VISIBLE)
-            binding.tvTitle4.setVisibility(View.VISIBLE)
-            Glide.with(this).load(contryInfo!!.flags.png).placeholder(R.drawable.loading).error(R.drawable.image_error).into(binding.countryFlag)
-            binding.tvCapital.text = contryInfo!!.capital
-            binding.tvRegion.text = contryInfo!!.region
-            binding.tvPopulation.text = contryInfo!!.population.toString()
-            binding.tvArea.text = contryInfo!!.area.toString() + " km²"
+    override fun showData() {
+        countryInfo = presenter?.getCountryInfo()
+        binding.apply {
+            tvTitle1.isVisible = true
+            tvTitle2.isVisible = true
+            tvTitle3.isVisible = true
+            tvTitle4.isVisible = true
         }
+        countryInfo?.let {
+            Glide.with(this).load(it.flags?.png).placeholder(R.drawable.loading).error(R.drawable.image_error).into(binding.countryFlag)
+            binding.tvCapital.text = it.capital
+            binding.tvRegion.text = it.region
+            binding.tvPopulation.text = it.population.toString()
+            binding.tvArea.text = it.area.toString() + " km²"
+        }
+    }
+
+    override fun showErrorMess(errorMess: String) {
+        Toast.makeText(this, errorMess, Toast.LENGTH_LONG).show()
     }
 }

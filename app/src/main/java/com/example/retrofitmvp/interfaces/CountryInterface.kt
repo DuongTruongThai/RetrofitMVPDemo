@@ -3,18 +3,20 @@ package com.example.retrofitmvp.interfaces
 import Country
 
 interface CountryInterface {
-    interface CountryModel{
-        fun getCountryInfoByName(countryName:String, presenter: CountryPresenter)
-        fun getCountry():Country
+    interface CountryModel {
+        fun getCountryByNameFromAPI(countryName: String, presenter: CountryPresenter)
+        fun getCountry(): Country
     }
 
-    interface CountryView{
-        fun updateViewData()
+    interface CountryView {
+        fun showData()
+        fun showErrorMess(errorMess: String)
     }
 
-    interface CountryPresenter{
+    interface CountryPresenter {
         fun networkcall(countryName: String)
-        fun showCountryInfo(): Country
+        fun getCountryInfo(): Country
         fun UIAutoUpdate()
+        fun failToExecute(errorMess: String)
     }
 }
