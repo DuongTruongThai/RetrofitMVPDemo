@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="wrap_content" format="integer" type="dimen">-2</item>
+    <dimen name="textSize">20sp</dimen>
+    <dimen name="layoutWidth">@dimen/wrap_content</dimen>
+    <dimen name="layoutHeight">@dimen/wrap_content</dimen>
+</resources>
